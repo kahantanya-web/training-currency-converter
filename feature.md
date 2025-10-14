@@ -1,6 +1,7 @@
 Add "Refresh Rates" Button to Currency. Ask questions to get more details if needs.
 
-<!-- Objective
+<!--
+Objective
 Add a "Refresh Rates" button to the currency converter application that fetches the latest exchange rates from the API in real time and updates the app with fresh data.
 Requirements
 Functionality
