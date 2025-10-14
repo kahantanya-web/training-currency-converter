@@ -6,41 +6,32 @@ export function useExchangeRates() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    let isMounted = true;
+  const fetchRates = useCallback(async () => {
+    setLoading(true);
+    setError(null);
 
-    const fetchRates = async () => {
-      setLoading(true);
-      setError(null);
+    try {
+      const response = await fetch('/api/rates', {
+        cache: 'no-store', // Force fresh data on refresh
+      });
+      const data = await response.json();
 
-      try {
-        const response = await fetch('/api/rates');
-        const data = await response.json();
-
-        if (!isMounted) return;
-
-        if (!data.success) {
-          throw new Error(data.error || 'Failed to fetch exchange rates');
-        }
-
-        setExchangeRates(data.data);
-      } catch (err: any) {
-        if (!isMounted) return;
-        setError(err.message || 'Failed to fetch exchange rates. Please try again later.');
-        console.error('Error fetching rates:', err);
-      } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+      if (!data.success) {
+        throw new Error(data.error || 'Failed to fetch exchange rates');
       }
-    };
 
-    fetchRates();
-
-    return () => {
-      isMounted = false;
-    };
+      setExchangeRates(data.data);
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch exchange rates. Please try again later.');
+      console.error('Error fetching rates:', err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  return { exchangeRates, loading, error };
+  useEffect(() => {
+    fetchRates();
+  }, [fetchRates]);
+
+  return { exchangeRates, loading, error, refreshRates: fetchRates };
 }

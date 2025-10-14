@@ -14,7 +14,7 @@ export default function Home() {
   const [showHistory, setShowHistory] = useState<boolean>(false);
   
   // Fetch exchange rates
-  const { exchangeRates, loading, error } = useExchangeRates();
+  const { exchangeRates, loading, error, refreshRates } = useExchangeRates();
 
   // Conversion logic
   const {
@@ -44,7 +44,7 @@ export default function Home() {
         <div className="bg-white rounded-lg shadow-xl p-6 mb-6">
           <ErrorMessage message={error} />
 
-          {loading ? (
+          {loading && !exchangeRates ? (
             <LoadingSpinner message="Loading exchange rates..." />
           ) : (
             <ConverterForm
@@ -58,6 +58,8 @@ export default function Home() {
               onFromCurrencyChange={setFromCurrency}
               onToCurrencyChange={setToCurrency}
               onSwap={handleSwap}
+              onRefresh={refreshRates}
+              refreshLoading={loading}
             />
           )}
         </div>

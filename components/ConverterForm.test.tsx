@@ -26,6 +26,8 @@ describe('ConverterForm', () => {
     onFromCurrencyChange: jest.fn(),
     onToCurrencyChange: jest.fn(),
     onSwap: jest.fn(),
+    onRefresh: jest.fn(),
+    refreshLoading: false,
   };
 
   beforeEach(() => {
@@ -38,6 +40,7 @@ describe('ConverterForm', () => {
     expect(screen.getByPlaceholderText('Enter amount')).toBeInTheDocument();
     expect(screen.getAllByRole('combobox')).toHaveLength(2);
     expect(screen.getByRole('button', { name: /swap currencies/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /refresh exchange rates/i })).toBeInTheDocument();
   });
 
   it('should display conversion result when no validation error', () => {
@@ -149,5 +152,30 @@ describe('ConverterForm', () => {
     
     expect(screen.getByPlaceholderText('Enter amount')).toBeInTheDocument();
     expect(screen.queryByText('Converted Amount')).not.toBeInTheDocument();
+  });
+
+  it('should call onRefresh when refresh button is clicked', async () => {
+    const user = userEvent.setup();
+    
+    render(<ConverterForm {...defaultProps} />);
+    
+    const refreshButton = screen.getByRole('button', { name: /refresh exchange rates/i });
+    await user.click(refreshButton);
+    
+    expect(defaultProps.onRefresh).toHaveBeenCalledTimes(1);
+  });
+
+  it('should disable refresh button when refreshLoading is true', () => {
+    render(<ConverterForm {...defaultProps} refreshLoading={true} />);
+    
+    const refreshButton = screen.getByRole('button', { name: /refresh exchange rates/i });
+    expect(refreshButton).toBeDisabled();
+  });
+
+  it('should enable refresh button when refreshLoading is false', () => {
+    render(<ConverterForm {...defaultProps} refreshLoading={false} />);
+    
+    const refreshButton = screen.getByRole('button', { name: /refresh exchange rates/i });
+    expect(refreshButton).not.toBeDisabled();
   });
 });
