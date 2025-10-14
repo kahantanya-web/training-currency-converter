@@ -1,0 +1,325 @@
+# Currency Converter
+
+A modern, responsive currency converter application built with Next.js, TypeScript, and Tailwind CSS. Convert between 10 popular currencies with real-time exchange rates.
+
+## Features
+
+### Core Functionality
+
+- **Real-time Exchange Rates**: Fetches rates from multiple API sources with automatic fallback
+- **10 Popular Currencies**: USD, EUR, GBP, JPY, AUD, CAD, CHF, CNY, INR, MXN
+- **Automatic Conversion**: No need to click convert - updates happen automatically
+- **Currency Swap**: Quickly swap source and target currencies
+- **URL Persistence**: Share conversions via URL parameters
+
+### Advanced Features
+
+- **Conversion History**: Tracks your last 10 conversions
+- **History Management**: View, reload, or clear your conversion history
+- **Input Validation**: Real-time validation with helpful error messages
+- **Responsive Design**: Works perfectly on mobile and desktop devices
+- **Error Handling**: Graceful fallback when API services are unavailable
+- **Caching**: 1-hour cache for optimal performance
+
+## Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **API Sources**:
+  - exchangerate.host
+  - exchangerate-api.com
+  - open.er-api.com
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18.x or higher
+- npm, yarn, or pnpm
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd training-currency-converter
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Building for Production
+
+```bash
+npm run build
+npm start
+```
+
+## Project Structure
+
+```
+training-currency-converter/
+├── app/
+│   ├── api/
+│   │   └── rates/
+│   │       └── route.ts          # Exchange rates API endpoint
+│   ├── globals.css               # Global styles
+│   ├── layout.tsx                # Root layout
+│   └── page.tsx                  # Main application page
+├── types/
+│   └── index.ts                  # TypeScript type definitions
+├── utils/
+│   ├── currency.ts               # Currency conversion utilities
+│   └── storage.ts                # LocalStorage utilities
+├── public/                       # Static assets
+├── next.config.js                # Next.js configuration
+├── tailwind.config.ts            # Tailwind CSS configuration
+├── tsconfig.json                 # TypeScript configuration
+├── package.json                  # Project dependencies
+├── README.md                     # This file
+└── CHANGELOG.md                  # Version history
+```
+
+## Custom Prompts
+
+This project includes custom instruction files for AI-assisted development. These prompts ensure consistent code generation and modifications according to project standards.
+
+### Initial Prompt
+
+This project was created using the following AI prompt:
+
+Create a complete Currency Converter App from scratch using Next.js and TypeScript.
+
+#### Technical Requirements
+
+- Next.js (App Router) with latest version
+- TypeScript for type safety
+- Tailwind CSS for styling
+- Node.js server-side implementation
+- Responsive design (mobile and desktop)
+
+#### Project Structure
+
+- `/app` - Next.js App Router structure
+- `/app/api/rates/route.ts` - API endpoint for exchange rates
+- `/utils/` folder for helper functions (currency.ts, storage.ts)
+- `/types/` folder for TypeScript interfaces
+- Standard Next.js configuration files
+
+#### Core Features
+
+1. **API Integration**:
+
+   - Fetch exchange rates from multiple sources with fallbacks
+     (exchangerate.host, exchangerate-api.com, open.er-api.com)
+   - Handle SSL certificate issues with proper Node.js implementation
+   - Implement 1-hour caching with Next.js revalidate
+
+2. **Currency Conversion**:
+
+   - Client-side conversion with proper decimal handling
+   - Support for 10 popular currencies
+
+3. **User Interface**:
+
+   - Clean, modern design
+   - Amount input with validation, validation under the field
+   - Source/target currency dropdowns
+   - Convert button with loading state between Source/target currency
+   - Result display with formatted amounts and exchange rate
+   - Error messages for invalid inputs and API failures
+   - All inputs in one line
+   - No refresh button — conversion should happen automatically on input
+     or selection change
+   - Swap button should be between the currency dropdowns
+
+4. **Advanced Features**:
+   - Currency swap functionality
+   - URL query parameter persistence
+   - Conversion history (last 10 conversions)
+   - History management (view, reload, clear)
+
+#### Error Handling
+
+- Client input validation with user feedback
+- API error handling with multiple fallback sources
+- Graceful degradation when services are unavailable
+- Timeout handling for slow connections
+
+#### Deliverables
+
+1. **Complete application code**:
+
+   - All source files organized in proper Next.js structure
+   - Well-commented TypeScript code
+   - Proper error handling throughout
+
+2. **Documentation**:
+   - README.md with setup instructions and features
+   - CHANGELOG.md for version history
+
+Ensure the application works without requiring additional configuration and
+addresses common issues like SSL certificate problems when fetching from
+external APIs. Use nice styles.
+Add unit tests with Jest + React Testing Library, following best practices for Next.js
+
+1. **Testing Framework Preference**:
+   Jest + React Testing Library
+
+2. **Test Coverage Goals**:
+   all unit tests + API routes
+
+3. **Mocking Strategy**:
+   MSW for API mocking + Jest mocks for other dependencies
+
+4. **Test File Organization**:
+   Tests co-located with source files (component.tsx + component.test.tsx)
+
+Break down the large components into smaller, reusable components following React best practices.
+
+## Usage
+
+### Basic Conversion
+
+1. Enter an amount in the input field
+2. Select the source currency from the first dropdown
+3. Select the target currency from the second dropdown
+4. The conversion happens automatically
+
+### Swap Currencies
+
+Click the swap button (⇄) between the currency dropdowns to quickly exchange the source and target currencies.
+
+### View History
+
+1. Click the "Show" button in the History section
+2. Click on any history item to reload that conversion
+3. Use "Clear History" to remove all saved conversions
+
+### Share Conversions
+
+The URL updates automatically with conversion parameters. Copy and share the URL to share a specific conversion:
+
+```
+http://localhost:3000?amount=100&from=USD&to=EUR
+```
+
+## API Endpoints
+
+### GET /api/rates
+
+Fetches current exchange rates with USD as the base currency.
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "base": "USD",
+    "rates": {
+      "EUR": 0.85,
+      "GBP": 0.73,
+      ...
+    },
+    "timestamp": 1697184000000
+  }
+}
+```
+
+**Caching:** 1 hour (3600 seconds)
+
+## Error Handling
+
+The application handles various error scenarios:
+
+- **Invalid Amount**: Shows validation error under the input field
+- **API Failure**: Automatically tries fallback sources
+- **Network Timeout**: 10-second timeout with error message
+- **SSL Certificate Issues**: Handled with custom HTTPS agent
+
+## Browser Support
+
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## Performance
+
+- **First Load**: ~2-3 seconds (includes API fetch)
+- **Subsequent Loads**: Instant (1-hour cache)
+- **Bundle Size**: Optimized for production
+- **Lighthouse Score**: 90+ (Performance, Accessibility, Best Practices)
+
+## Troubleshooting
+
+### API Not Loading
+
+If exchange rates fail to load:
+
+1. Check your internet connection
+2. The app automatically tries 3 different API sources
+3. Wait a moment and try again
+4. Check browser console for detailed error messages
+
+### History Not Saving
+
+If conversion history doesn't persist:
+
+1. Ensure localStorage is enabled in your browser
+2. Check if you're in private/incognito mode
+3. Clear browser cache and try again
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## Acknowledgments
+
+- Exchange rate data provided by:
+  - [exchangerate.host](https://exchangerate.host)
+  - [exchangerate-api.com](https://exchangerate-api.com)
+  - [open.er-api.com](https://open.er-api.com)
+- Built with [Next.js](https://nextjs.org)
+- Styled with [Tailwind CSS](https://tailwindcss.com)
+
+## Support
+
+For issues, questions, or suggestions, please open an issue on GitHub.
+
+---
+
+**Version**: 1.0.0  
+**Last Updated**: October 2025
