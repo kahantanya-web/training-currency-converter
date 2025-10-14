@@ -106,6 +106,26 @@ export function useConverter(exchangeRates: ExchangeRates | null) {
     setToCurrency(fromCurrency);
   }, [fromCurrency, toCurrency]);
 
+  const handleFromCurrencyChange = useCallback((newFromCurrency: string) => {
+    // If the new "from" currency matches the current "to" currency, swap them
+    if (newFromCurrency === toCurrency) {
+      setFromCurrency(newFromCurrency);
+      setToCurrency(fromCurrency);
+    } else {
+      setFromCurrency(newFromCurrency);
+    }
+  }, [fromCurrency, toCurrency]);
+
+  const handleToCurrencyChange = useCallback((newToCurrency: string) => {
+    // If the new "to" currency matches the current "from" currency, swap them
+    if (newToCurrency === fromCurrency) {
+      setToCurrency(newToCurrency);
+      setFromCurrency(toCurrency);
+    } else {
+      setToCurrency(newToCurrency);
+    }
+  }, [fromCurrency, toCurrency]);
+
   const loadFromHistory = useCallback((conversion: ConversionResult) => {
     setAmount(conversion.amount.toString());
     setFromCurrency(conversion.from);
@@ -125,8 +145,8 @@ export function useConverter(exchangeRates: ExchangeRates | null) {
     validationError,
     history,
     setAmount,
-    setFromCurrency,
-    setToCurrency,
+    setFromCurrency: handleFromCurrencyChange,
+    setToCurrency: handleToCurrencyChange,
     handleSwap,
     loadFromHistory,
     clearConversionHistory,

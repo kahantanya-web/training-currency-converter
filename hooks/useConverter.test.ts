@@ -271,4 +271,72 @@ describe('useConverter', () => {
       expect(result.current.result).toBe(null);
     });
   });
+
+  it('should prevent same currency selection by swapping when fromCurrency is changed to match toCurrency', () => {
+    const { result } = renderHook(() => useConverter(mockExchangeRates));
+
+    // Initial state: USD -> EUR
+    expect(result.current.fromCurrency).toBe('USD');
+    expect(result.current.toCurrency).toBe('EUR');
+
+    // Try to set fromCurrency to EUR (which is already the toCurrency)
+    act(() => {
+      result.current.setFromCurrency('EUR');
+    });
+
+    // Should swap: from becomes EUR, to becomes USD
+    expect(result.current.fromCurrency).toBe('EUR');
+    expect(result.current.toCurrency).toBe('USD');
+  });
+
+  it('should prevent same currency selection by swapping when toCurrency is changed to match fromCurrency', () => {
+    const { result } = renderHook(() => useConverter(mockExchangeRates));
+
+    // Initial state: USD -> EUR
+    expect(result.current.fromCurrency).toBe('USD');
+    expect(result.current.toCurrency).toBe('EUR');
+
+    // Try to set toCurrency to USD (which is already the fromCurrency)
+    act(() => {
+      result.current.setToCurrency('USD');
+    });
+
+    // Should swap: from becomes EUR, to becomes USD
+    expect(result.current.fromCurrency).toBe('EUR');
+    expect(result.current.toCurrency).toBe('USD');
+  });
+
+  it('should allow setting fromCurrency to a different currency without swapping', () => {
+    const { result } = renderHook(() => useConverter(mockExchangeRates));
+
+    // Initial state: USD -> EUR
+    expect(result.current.fromCurrency).toBe('USD');
+    expect(result.current.toCurrency).toBe('EUR');
+
+    // Set fromCurrency to GBP (different from both USD and EUR)
+    act(() => {
+      result.current.setFromCurrency('GBP');
+    });
+
+    // Should simply update fromCurrency without swapping
+    expect(result.current.fromCurrency).toBe('GBP');
+    expect(result.current.toCurrency).toBe('EUR');
+  });
+
+  it('should allow setting toCurrency to a different currency without swapping', () => {
+    const { result } = renderHook(() => useConverter(mockExchangeRates));
+
+    // Initial state: USD -> EUR
+    expect(result.current.fromCurrency).toBe('USD');
+    expect(result.current.toCurrency).toBe('EUR');
+
+    // Set toCurrency to JPY (different from both USD and EUR)
+    act(() => {
+      result.current.setToCurrency('JPY');
+    });
+
+    // Should simply update toCurrency without swapping
+    expect(result.current.fromCurrency).toBe('USD');
+    expect(result.current.toCurrency).toBe('JPY');
+  });
 });
