@@ -1,5 +1,11 @@
 # Currency Converter - AI Coding Agent Instructions
 
+## Session Management
+
+- **Always create a to-do list** at the start of each multi-step task or session
+- **Maintain a temporary log file** (`copilot_session.log`) for context recovery during long operations
+- Track progress and mark completed items to maintain visibility
+
 ## Project Overview
 
 This is a Next.js 14 currency converter app with TypeScript, featuring real-time exchange rates, automatic conversions, and URL persistence. Built with App Router architecture and comprehensive Jest testing.
