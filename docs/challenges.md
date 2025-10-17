@@ -194,6 +194,61 @@ This repository contains multiple branches, each representing a different traini
 
 ---
 
+### `spec-kit` - Spec-Driven Development with GitHub's Spec-Kit
+
+**Challenge #6: Using Spec-Kit for Structured Feature Development**
+
+**Objective**: Master spec-driven development using GitHub's Spec-Kit toolkit to define project principles, create detailed specifications, generate implementation plans, and build features with AI-assisted workflows.
+
+**AI Interaction Skills Practiced**:
+
+- **Using structured slash commands** (`/speckit.*`) with GitHub Copilot
+- **Establishing project constitution** with quality and performance standards
+- **Creating comprehensive specifications** before writing code
+- **Generating implementation plans** from specifications
+- **Breaking features into actionable tasks** with dependencies
+- **Maintaining consistency** across spec, plan, and implementation
+- **Iterating on specifications** to clarify ambiguities
+- **Leveraging AI for analysis** and validation of work artifacts
+
+**Technical Skills Practiced**:
+
+- Installing and configuring Spec-Kit (UV, Specify CLI)
+- Managing spec-driven workflows (specify → plan → tasks → implement)
+- Writing clear functional and non-functional requirements
+- Defining user stories with acceptance criteria
+- Creating implementation checklists and quality gates
+- Version controlling specifications and plans
+- Integrating specs with AI assistant context
+- Validating artifact consistency and completeness
+
+**What You'll Learn**:
+
+**AI Collaboration:**
+
+- How to use GitHub's Spec-Kit slash commands effectively
+- How to structure specifications for maximum AI comprehension
+- How to leverage constitution files to maintain quality standards
+- How to use AI for clarification, analysis, and validation
+- How to iterate specifications before implementation
+- How to break complex features into manageable tasks with AI
+
+**Technical Implementation:**
+
+- Complete spec-driven development workflow from idea to code
+- Setting up UV package manager and Specify CLI
+- Creating project constitutions with testable guardrails
+- Writing specifications with functional and technical requirements
+- Generating implementation plans with tech stack decisions
+- Creating actionable task lists with dependencies and estimates
+- Analyzing cross-artifact consistency (spec/plan/tasks alignment)
+- Implementing features following generated plans and tasks
+- Maintaining quality through checklist-driven validation
+
+> 📄 **See [specKit.md](specKit.md) for the complete setup guide and workflow.**
+
+---
+
 ## 📚 How to Use This Repository
 
 ### For Learners
@@ -204,6 +259,7 @@ This repository contains multiple branches, each representing a different traini
 4. **Work on `bug-fix`**: Practice debugging
 5. **Practice `feature`**: Master requirements gathering
 6. **Try `agent-issue`**: Learn to create well-structured GitHub issues with AI
+7. **Master `spec-kit`**: Practice spec-driven development with structured workflows
 
 ### Switching Between Challenges
 
