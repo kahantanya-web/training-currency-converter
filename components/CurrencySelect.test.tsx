@@ -70,4 +70,22 @@ describe('CurrencySelect', () => {
     expect(screen.getByRole('option', { name: /GBP - British Pound/ })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: /JPY - Japanese Yen/ })).toBeInTheDocument();
   });
+
+  it('toggles favorite when star is clicked', async () => {
+    const user = userEvent.setup();
+    render(<CurrencySelect value="EUR" onChange={jest.fn()} />);
+
+    const starButton = screen.getByRole('button', { name: /Favorite currency|Unfavorite currency/ });
+    // initially not favorite
+    expect(starButton).toHaveAttribute('aria-pressed', 'false');
+
+    await user.click(starButton);
+    expect(starButton).toHaveAttribute('aria-pressed', 'true');
+    // filled star should be present
+    expect(screen.queryByTestId('star-filled')).toBeInTheDocument();
+
+    await user.click(starButton);
+    expect(starButton).toHaveAttribute('aria-pressed', 'false');
+    expect(screen.queryByTestId('star-outline')).toBeInTheDocument();
+  });
 });

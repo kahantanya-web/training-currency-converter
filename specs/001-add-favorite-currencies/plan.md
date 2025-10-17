@@ -19,7 +19,7 @@ Storage: client-side `localStorage` (fallback in-memory)
 Testing: Jest + React Testing Library  
 Target Platform: web (modern evergreen browsers)  
 Performance Goals: selector rendering p95 < 200ms for common cases  
-Constraints: no server-side persistence; no PII stored  
+Constraints: no server-side persistence; no PII stored
 
 Open questions: NONE — feature request included localStorage requirement.
 
@@ -27,11 +27,11 @@ Open questions: NONE — feature request included localStorage requirement.
 
 Gates derived from `.specify/memory/constitution.md`:
 
-- Code quality: ESLint + TypeScript typecheck must pass in CI.  
+- Code quality: ESLint + TypeScript typecheck must pass in CI.
 - Tests: Unit tests for favorites logic; integration/UI tests for add/remove
-  and persistence.  
+  and persistence.
 - Coverage: keep or improve component coverage; target +2% in affected
-  areas.  
+  areas.
 - Performance: lightweight smoke test for selector render time when
   favorites are present.
 
@@ -40,7 +40,8 @@ Document test file locations in the plan (see Tasks).
 ## Project Structure (feature)
 
 specs/001-add-favorite-currencies/
-- plan.md  # this file
+
+- plan.md # this file
 - research.md
 - spec.md
 - data-model.md
@@ -60,26 +61,26 @@ Research outputs: see `research.md`.
 
 Deliverables:
 
-- `data-model.md` — entity shape and validation rules for favorites.  
+- `data-model.md` — entity shape and validation rules for favorites.
 - `contracts/` — not applicable for server APIs; include a note that this is
-  client-only.  
-- `quickstart.md` — how to use the feature from a developer perspective.  
+  client-only.
+- `quickstart.md` — how to use the feature from a developer perspective.
 
 ## Phase 2: Tasks (high level)
 
-- Setup: add unit/integration test files scaffold.  
-- Implement favorites utility (add/remove/get/subscribe) with TS types.  
+- Setup: add unit/integration test files scaffold.
+- Implement favorites utility (add/remove/get/subscribe) with TS types.
 - Integrate into `CurrencySelect` UI: show favorites at top, add/remove
-  affordances.  
-- Edge-case handling: invalid JSON, storage disabled, cross-tab sync.  
+  affordances.
+- Edge-case handling: invalid JSON, storage disabled, cross-tab sync.
 - Tests: unit tests for utils; integration tests for UI flows; coverage
-  assertions.  
+  assertions.
 - CI: ensure tests run and coverage check added to pipeline (or workflow)
 
 ## Phase 3: Polish & Release
 
-- Accessibility checks for favorites UI (keyboard, screen reader labels).  
-- Performance smoke test and minor optimizations if needed.  
+- Accessibility checks for favorites UI (keyboard, screen reader labels).
+- Performance smoke test and minor optimizations if needed.
 - Update docs and changelog.
 
 ## Artifacts to create now

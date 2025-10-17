@@ -72,19 +72,19 @@
 
 ## Dependencies & Execution Order
 
-- Foundation (T005..T009) MUST complete before User Story implementations (T010..T018).  
-- User Story 1 (T010..T013) is the MVP and can be executed after Foundation is ready.  
+- Foundation (T005..T009) MUST complete before User Story implementations (T010..T018).
+- User Story 1 (T010..T013) is the MVP and can be executed after Foundation is ready.
 - User Story 2 and 3 can proceed in parallel with separate reviewers once foundational tasks are complete.
 
 ## Parallel opportunities
 
-- T001, T002, T003 (test scaffolding) are parallelizable.  
-- T009 (unit tests for utils) can be executed in parallel with T005..T008 where appropriate if tests mock storage.  
+- T001, T002, T003 (test scaffolding) are parallelizable.
+- T009 (unit tests for utils) can be executed in parallel with T005..T008 where appropriate if tests mock storage.
 - UI implementation tasks for different user stories (T010..T011 vs T014) may be parallel if changes are isolated to `components/CurrencySelect.tsx` with feature-flag branches.
 
 ## Implementation Strategy
 
-1. MVP first: complete Phase 2 foundational utilities (T005..T009).  
-2. Implement User Story 1 (T010..T013), run tests and validate persistence across reloads.  
-3. Implement User Story 2 and 3, run integration tests.  
+1. MVP first: complete Phase 2 foundational utilities (T005..T009).
+2. Implement User Story 1 (T010..T013), run tests and validate persistence across reloads.
+3. Implement User Story 2 and 3, run integration tests.
 4. Polish: accessibility, perf, CI updates, docs.

@@ -33,3 +33,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# spec-kit (may contain credentials/tokens)
+.github/copilot-instructions.md
+.specify/memory/
