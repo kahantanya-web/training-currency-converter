@@ -62,10 +62,10 @@ Acceptance Scenarios:
 ### Edge Cases
 
 - The localStorage entry is invalid JSON (malformed): the app must ignore the
-  value, reset favorites to empty, and not crash the UI.  
+  value, reset favorites to empty, and not crash the UI.
 - Storage quota exceeded or localStorage disabled: fall back to in-memory
   favorites for the session and surface a non-blocking warning to the user
-  (do not block conversions).  
+  (do not block conversions).
 - Multiple tabs: if favorites are changed in another tab, the UI should react
   to the `storage` event and update displayed favorites.
 
@@ -74,11 +74,11 @@ Acceptance Scenarios:
 ### Constitution Check (required)
 
 - Code Quality: ESLint and TypeScript typecheck MUST pass. Relevant
-  config files: `/.eslintrc.js`, `tsconfig.json`.  
-- Tests: Required tests:  
-  - Unit: `components/__tests__/favorites.test.tsx` (favorites reducer/logic).  
-  - Integration/UI: `components/__tests__/favorites.integration.test.tsx` (user flow: add/remove favorites and persistence).  
-- Coverage: expected +2% coverage in component area (overall repo target 80%).  
+  config files: `/.eslintrc.js`, `tsconfig.json`.
+- Tests: Required tests:
+  - Unit: `components/__tests__/favorites.test.tsx` (favorites reducer/logic).
+  - Integration/UI: `components/__tests__/favorites.integration.test.tsx` (user flow: add/remove favorites and persistence).
+- Coverage: expected +2% coverage in component area (overall repo target 80%).
 - Performance: negligible performance impact; add a lightweight smoke test
   ensuring currency selector open time remains within acceptable limits (UI
   render p95 target < 200ms in integration harness for selector rendering).
@@ -86,42 +86,41 @@ Acceptance Scenarios:
 ### Functional Requirements
 
 - FR-001: The system MUST allow a user to add a currency to a local favorites
-  list from the currency selection UI.  
+  list from the currency selection UI.
 - FR-002: The system MUST allow a user to remove a currency from the local
-  favorites list.  
+  favorites list.
 - FR-003: The system MUST persist the favorites list to browser
   `localStorage` under a namespaced key (e.g., `tcc.favorites`) and restore it
-  on app load.  
+  on app load.
 - FR-004: On load, if the persisted favorites is invalid or missing, the
-  system MUST initialize with an empty favorites list and NOT throw errors.  
+  system MUST initialize with an empty favorites list and NOT throw errors.
 - FR-005: The favorites list MUST be displayed prominently in the currency
-  selector UI, with a clear affordance to add/remove favorites.  
+  selector UI, with a clear affordance to add/remove favorites.
 - FR-006: The system MUST listen for cross-tab `storage` events and update
-  the UI when favorites change in another tab.  
+  the UI when favorites change in another tab.
 
 Assumptions:
 
-- Users are anonymous (no server-side persistence required).  
-- LocalStorage is acceptable for this feature; no PII is stored.  
+- Users are anonymous (no server-side persistence required).
+- LocalStorage is acceptable for this feature; no PII is stored.
 - The UI has a currency selector component where favorites can be integrated.
 
 ### Key Entities
 
 - Favorites list: ordered array of currency codes (ISO 4217, e.g., "USD",
-  "EUR").  
-- Storage key: string (e.g., `tcc.favorites`) holding JSON array of codes.  
+  "EUR").
+- Storage key: string (e.g., `tcc.favorites`) holding JSON array of codes.
 
 ## Success Criteria (mandatory)
 
 ### Measurable Outcomes
 
 - SC-001: Users can add a currency to favorites and select it within 2 clicks
-  in 95% of trials (measured in manual acceptance testing).  
+  in 95% of trials (measured in manual acceptance testing).
 - SC-002: Favorites persist across reloads: after adding a favorite and
-  reloading the page, the favorite appears in the list in 100% of trials.  
+  reloading the page, the favorite appears in the list in 100% of trials.
 - SC-003: When favorites are updated in another tab, the receiving tab shows
-  the update within 2 seconds in 95% of trials (storage event handling).  
+  the update within 2 seconds in 95% of trials (storage event handling).
 - SC-004: No regressions in existing tests; component coverage for the
   currency selector/favorites area remains >= the prior baseline (expect
   +2% delta target).
-
