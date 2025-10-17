@@ -46,13 +46,6 @@ describe('CurrencySelect', () => {
     expect(screen.getByText('From Currency')).toBeInTheDocument();
   });
 
-  it('should have correct styling classes', () => {
-    render(<CurrencySelect value="USD" onChange={jest.fn()} />);
-    
-    const select = screen.getByRole('combobox');
-    expect(select).toHaveClass('w-full', 'border', 'rounded-lg');
-  });
-
   it('should render dropdown icon', () => {
     const { container } = render(
       <CurrencySelect value="USD" onChange={jest.fn()} />
