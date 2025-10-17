@@ -31,6 +31,190 @@ A modern, responsive currency converter application built with Next.js, TypeScri
   - exchangerate-api.com
   - open.er-api.com
 
+## Training Challenges
+
+This repository is designed as a hands-on learning platform for AI-assisted development. Each branch contains a different challenge that teaches specific skills for working effectively with AI coding assistants like GitHub Copilot.
+
+### Available Challenges
+
+1. **`main`** - Complete Project Setup from Scratch
+2. **`customisation`** - Project Customization
+3. **`unit-test`** - Unit Test Writing
+4. **`bug-fix`** - Bug Fixing
+5. **`feature`** - Feature Requirements Preparation
+6. **`agent-issue`** - Creating GitHub Issues with AI
+7. **`spec-kit`** - Spec-Driven Development with GitHub's Spec-Kit
+
+### How to Start a Challenge
+
+#### Step 1: Choose Your Challenge
+
+Review the available challenges in `docs/Challenges.md` to understand what each one teaches.
+
+```bash
+# View the challenges documentation
+cat docs/Challenges.md
+```
+
+#### Step 2: Read the Challenge Documentation
+
+Each challenge has detailed documentation in the `docs/` folder:
+
+```bash
+# For customisation challenge
+cat docs/customisation.md
+
+# For unit-test challenge
+cat docs/unitTest.md
+
+# For bug-fix challenge
+cat docs/bugFix.md
+
+# For feature challenge
+cat docs/feature.md
+
+# For agent-issue challenge
+cat docs/agentIssue.md
+
+# For spec-kit challenge
+cat docs/specKit.md
+```
+
+#### Step 3: Follow the Challenge Instructions
+
+Each challenge documentation includes:
+
+- **Objective**: What you'll learn
+- **Skills Practiced**: Specific skills covered
+- **Step-by-step Instructions**: How to complete the challenge
+- **Example Prompts**: Sample AI prompts to use
+- **Expected Outcomes**: What success looks like
+
+#### Step 4: Practice with AI Assistants
+
+Use AI assistants (GitHub Copilot, Claude, ChatGPT, etc.) to:
+
+- Generate code based on requirements
+- Write tests for existing components
+- Debug issues and fix bugs
+- Create specifications and documentation
+- Implement new features
+
+#### Step 5: Compare Your Solution with the Challenge Branch
+
+After completing the challenge, compare your work with the reference solution:
+
+```bash
+# View all available branches
+git branch -a
+
+# Switch to the challenge branch to see the reference solution
+git checkout <challenge-branch-name>
+
+# Example: Check the customisation challenge solution
+git checkout customisation
+
+# Compare specific files with your solution
+git diff main <challenge-branch-name> -- <file-path>
+
+# Return to main branch
+git checkout main
+```
+
+Each challenge branch contains the completed solution so you can:
+
+- Verify your implementation is correct
+- Learn from alternative approaches
+- Understand best practices
+- Check if you missed any requirements
+
+**Important Note on AI Variability:**
+
+Your solution **will not be 100% identical** to the reference solution, and **this is completely normal**. AI assistants (like GitHub Copilot, Claude, ChatGPT) can produce different but equally valid results because:
+
+- Different AI models have different approaches to problem-solving
+- The same AI model can generate different code on different runs
+- There are often multiple correct ways to solve the same problem
+
+**What matters:**
+
+- ✅ Your code achieves the same functional requirements
+- ✅ Tests pass and coverage is adequate
+- ✅ Code follows project conventions and quality standards
+- ✅ The implementation is maintainable and well-structured
+
+**Focus on learning** from the differences rather than matching the reference exactly. Understanding _why_ the AI chose different approaches helps you become a better AI-assisted developer.
+
+### Recommended Learning Path
+
+**For Beginners:**
+
+1. Start with **`customisation`** to set up your environment
+2. Try **`unit-test`** to practice testing
+3. Work on **`bug-fix`** to learn debugging
+4. Practice **`feature`** to master requirements
+5. Try **`agent-issue`** for GitHub workflow
+6. Master **`spec-kit`** for advanced spec-driven development
+
+**For Experienced Developers:**
+
+Jump directly to any challenge based on the skills you want to practice.
+
+### Challenge Tips
+
+**Do:**
+
+- ✅ Read the full challenge documentation before starting
+- ✅ Experiment with different AI prompts
+- ✅ Review and understand AI-generated code
+- ✅ Run tests frequently to validate your work
+- ✅ Commit your changes as you progress
+- ✅ Compare your solution with the provided examples
+
+**Don't:**
+
+- ❌ Skip the challenge documentation
+- ❌ Copy-paste AI output without understanding it
+- ❌ Ignore failing tests
+- ❌ Rush through challenges without learning
+- ❌ Skip the verification steps
+
+### Getting Help
+
+If you get stuck on a challenge:
+
+1. Re-read the challenge documentation
+2. Review the example prompts and expected outcomes
+3. Check the `docs/` folder for additional resources
+4. Look at the `VISUAL_GUIDE.md` for UI components
+5. Review the `CHANGELOG.md` for version history
+6. Open an issue on GitHub for community help
+
+### Switching Between Challenges
+
+You can switch between challenges at any time:
+
+```bash
+# Save your current work
+git add .
+git commit -m "WIP: Working on <challenge-name>"
+
+# Switch to another challenge
+git checkout <another-challenge-branch>
+
+# Return to your previous challenge
+git checkout <previous-challenge-branch>
+```
+
+### After Completing a Challenge
+
+1. **Verify Your Solution**: Run all tests and ensure they pass
+2. **Review Your Code**: Compare with examples and best practices
+3. **Document Your Learning**: Note what you learned
+4. **Move to Next Challenge**: Continue your learning journey
+
+For complete details on all challenges, see **[docs/Challenges.md](docs/Challenges.md)**.
+
 ## Getting Started
 
 ### Prerequisites
