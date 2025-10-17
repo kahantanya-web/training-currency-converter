@@ -1,130 +1,127 @@
-# Feature Specification: [FEATURE NAME]
+# Feature Specification: Favorite Currencies
 
-**Feature Branch**: `[###-feature-name]`  
-**Created**: [DATE]  
+**Feature Branch**: `spec-kit`  
+**Created**: 2025-10-17  
 **Status**: Draft  
-**Input**: User description: "$ARGUMENTS"
+**Input**: User description: "Add a \"Favorite Currencies\" feature with localStorage persistence"
 
-## User Scenarios & Testing _(mandatory)_
+## User Scenarios & Testing (mandatory)
 
-<!--
-  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
-  Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
-  you should still have a viable MVP (Minimum Viable Product) that delivers value.
+### User Story 1 - Add / Save Favorite Currency (Priority: P1)
 
-  Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
-  Think of each story as a standalone slice of functionality that can be:
-  - Developed independently
-  - Tested independently
-  - Deployed independently
-  - Demonstrated to users independently
--->
+As a user, I want to save a currency as a favorite from the currency selection UI so
+I can quickly pick it in future conversions.
 
-### User Story 1 - [Brief Title] (Priority: P1)
+Why this priority: saving favorites materially reduces selection friction for
+frequent currency pairs and improves primary conversion task speed.
 
-[Describe this user journey in plain language]
+Independent Test: unit tests for the favorite management logic and an
+integration/UI test that exercises marking a currency as favorite and seeing
+it appear in the favorites list.
 
-**Why this priority**: [Explain the value and why it has this priority level]
+Acceptance Scenarios:
 
-**Independent Test**: [Describe how this can be tested independently - e.g., "Can be fully tested by [specific action] and delivers [specific value]"]
-
-**Acceptance Scenarios**:
-
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
-2. **Given** [initial state], **When** [action], **Then** [expected outcome]
+1. Given the app has no favorites, when the user marks EUR as favorite, then
+   EUR appears in the favorites list and is persisted to localStorage.
+2. Given EUR is already a favorite, when the user marks EUR again, then the
+   favorites list remains unchanged (no duplicates).
 
 ---
 
-### User Story 2 - [Brief Title] (Priority: P2)
+### User Story 2 - Remove Favorite (Priority: P2)
 
-[Describe this user journey in plain language]
+As a user, I want to remove a currency from my favorites so I can keep the
+list relevant.
 
-**Why this priority**: [Explain the value and why it has this priority level]
+Independent Test: unit tests for removal logic and an integration/UI test for
+removal flow and persistence check.
 
-**Independent Test**: [Describe how this can be tested independently]
+Acceptance Scenarios:
 
-**Acceptance Scenarios**:
-
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
-
----
-
-### User Story 3 - [Brief Title] (Priority: P3)
-
-[Describe this user journey in plain language]
-
-**Why this priority**: [Explain the value and why it has this priority level]
-
-**Independent Test**: [Describe how this can be tested independently]
-
-**Acceptance Scenarios**:
-
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+1. Given EUR is a favorite, when the user removes EUR, then EUR no longer
+   appears in favorites and localStorage is updated accordingly.
 
 ---
 
-[Add more user stories as needed, each with an assigned priority]
+### User Story 3 - Quick Access & UI Integration (Priority: P3)
+
+As a user, I want favorites displayed prominently in the currency selector so
+I can pick them without scrolling long lists.
+
+Independent Test: UI snapshot / integration test that confirms favorites are
+rendered above the full list and ordering is preserved across reloads.
+
+Acceptance Scenarios:
+
+1. Given favorites exist, when the currency selector opens, then favorites are
+   shown at the top in the order they were added (most recent first is OK if
+   specified below).
+
+---
 
 ### Edge Cases
 
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right edge cases.
--->
+- The localStorage entry is invalid JSON (malformed): the app must ignore the
+  value, reset favorites to empty, and not crash the UI.  
+- Storage quota exceeded or localStorage disabled: fall back to in-memory
+  favorites for the session and surface a non-blocking warning to the user
+  (do not block conversions).  
+- Multiple tabs: if favorites are changed in another tab, the UI should react
+  to the `storage` event and update displayed favorites.
 
-- What happens when [boundary condition]?
-- How does system handle [error scenario]?
+## Requirements (mandatory)
 
-## Requirements _(mandatory)_
+### Constitution Check (required)
 
-## Constitution Check (required)
-
-Before finalizing this spec, declare how the change maps to the project
-constitution (`.specify/memory/constitution.md`). Provide short answers to
-the following gates and link required artifacts:
-
-- Code Quality: which linters/typechecks will run? Link ESLint/TSConfig rules.
-- Tests: list required unit and integration tests and their file paths.
-- Coverage: expected coverage delta and rationale (target: repo 80%).
-- Performance: if applicable, list performance tests/benchmarks and
-  acceptance thresholds (e.g., p95 < 200ms for route X).
-
-These answers are mandatory and will be reviewed during the Plan and PR
-processes.
-
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right functional requirements.
--->
+- Code Quality: ESLint and TypeScript typecheck MUST pass. Relevant
+  config files: `/.eslintrc.js`, `tsconfig.json`.  
+- Tests: Required tests:  
+  - Unit: `components/__tests__/favorites.test.tsx` (favorites reducer/logic).  
+  - Integration/UI: `components/__tests__/favorites.integration.test.tsx` (user flow: add/remove favorites and persistence).  
+- Coverage: expected +2% coverage in component area (overall repo target 80%).  
+- Performance: negligible performance impact; add a lightweight smoke test
+  ensuring currency selector open time remains within acceptable limits (UI
+  render p95 target < 200ms in integration harness for selector rendering).
 
 ### Functional Requirements
 
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+- FR-001: The system MUST allow a user to add a currency to a local favorites
+  list from the currency selection UI.  
+- FR-002: The system MUST allow a user to remove a currency from the local
+  favorites list.  
+- FR-003: The system MUST persist the favorites list to browser
+  `localStorage` under a namespaced key (e.g., `tcc.favorites`) and restore it
+  on app load.  
+- FR-004: On load, if the persisted favorites is invalid or missing, the
+  system MUST initialize with an empty favorites list and NOT throw errors.  
+- FR-005: The favorites list MUST be displayed prominently in the currency
+  selector UI, with a clear affordance to add/remove favorites.  
+- FR-006: The system MUST listen for cross-tab `storage` events and update
+  the UI when favorites change in another tab.  
 
-_Example of marking unclear requirements:_
+Assumptions:
 
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+- Users are anonymous (no server-side persistence required).  
+- LocalStorage is acceptable for this feature; no PII is stored.  
+- The UI has a currency selector component where favorites can be integrated.
 
-### Key Entities _(include if feature involves data)_
+### Key Entities
 
-- **[Entity 1]**: [What it represents, key attributes without implementation]
-- **[Entity 2]**: [What it represents, relationships to other entities]
+- Favorites list: ordered array of currency codes (ISO 4217, e.g., "USD",
+  "EUR").  
+- Storage key: string (e.g., `tcc.favorites`) holding JSON array of codes.  
 
-## Success Criteria _(mandatory)_
-
-<!--
-  ACTION REQUIRED: Define measurable success criteria.
-  These must be technology-agnostic and measurable.
--->
+## Success Criteria (mandatory)
 
 ### Measurable Outcomes
 
-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+- SC-001: Users can add a currency to favorites and select it within 2 clicks
+  in 95% of trials (measured in manual acceptance testing).  
+- SC-002: Favorites persist across reloads: after adding a favorite and
+  reloading the page, the favorite appears in the list in 100% of trials.  
+- SC-003: When favorites are updated in another tab, the receiving tab shows
+  the update within 2 seconds in 95% of trials (storage event handling).  
+- SC-004: No regressions in existing tests; component coverage for the
+  currency selector/favorites area remains >= the prior baseline (expect
+  +2% delta target).
+
