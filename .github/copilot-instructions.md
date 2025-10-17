@@ -116,6 +116,12 @@ renderHook(() => useConverter(mockRates), { wrapper });
 - Jest mocks for Next.js navigation in `jest.setup.ts`
 - Component props mocking with complete default objects
 
+### Testing Best Practices
+
+- **Don't test styles**: Avoid asserting specific CSS classes or inline styles. Styles change frequently and are better validated through visual/snapshot testing or manual review.
+- **Test behavior, not implementation**: Focus on user interactions, state changes, and outputs rather than component internals.
+- **Exception**: Only test classes when they affect functionality (e.g., `disabled` state, visibility toggles, or accessibility attributes like `aria-*`).
+
 ## Development Workflows
 
 ### Key Commands
