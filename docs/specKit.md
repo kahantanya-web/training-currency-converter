@@ -194,10 +194,24 @@ Once installed, use these slash commands in GitHub Copilot (VS Code):
    - Define user stories
    - Establish acceptance criteria
 
-   Example:
+   Example (detailed prompt recommended):
 
    ```
-   /speckit.specify Add a "Favorite Currencies" feature with localStorage persistence
+   /speckit.specify Add a "Favorite Currencies" feature:
+   - Users can mark currencies as favorites with a star icon
+   - Favorite icon (star) should appear as prefix on the left side of the currency selector input
+   - When currency is favorite: star is filled (solid), background is highlighted
+   - All UI elements must be properly aligned without overlapping or obscuring content
+   - Ensure responsive layout on mobile and desktop
+   - Favorites persist in localStorage (key: tcc.favorites)
+   - Favorites must use client-side hydration (load localStorage in useEffect) to prevent React hydration errors
+   - Favorites appear at the top of currency selectors
+   - Maximum 5 favorites allowed
+   - UI shows add/remove favorite controls
+   - Include unit tests for favorites logic
+   - Follow constitution: 80% coverage, WCAG 2.1 AA, performance targets
+   - Use appearance-none CSS for custom dropdown arrows to prevent double arrows
+   - Always display both currency code AND name in dropdowns (e.g., "USD - US Dollar")
    ```
 
 3. **`/speckit.plan`** - Create implementation plan

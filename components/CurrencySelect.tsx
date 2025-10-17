@@ -44,12 +44,20 @@ export default function CurrencySelect({ value, onChange, label }: CurrencySelec
       )}
       <div className="relative w-full">
         {/* unified container so the star is visually inside the same rounded border */}
-        <div className="flex items-center border border-gray-300 rounded-lg bg-white hover:border-gray-400 transition-colors focus-within:ring-2 focus-within:ring-blue-500">
+        <div className={`flex items-center border rounded-lg hover:border-gray-400 transition-all focus-within:ring-2 focus-within:ring-blue-500 ${
+          isFav 
+            ? 'bg-yellow-50 border-yellow-300' 
+            : 'bg-white border-gray-300'
+        }`}>
           <button
             aria-pressed={isFav}
             aria-label={isFav ? 'Unfavorite currency' : 'Favorite currency'}
             onClick={toggleFavorite}
-            className="ml-2 mr-3 p-2 rounded-full text-yellow-500 hover:bg-yellow-50 focus:outline-none"
+            className={`ml-2 mr-3 p-2 rounded-full focus:outline-none transition-colors ${
+              isFav 
+                ? 'text-yellow-600 hover:bg-yellow-100' 
+                : 'text-gray-400 hover:bg-yellow-50 hover:text-yellow-500'
+            }`}
           >
             {isFav ? (
               <svg data-testid="star-filled" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
@@ -75,9 +83,9 @@ export default function CurrencySelect({ value, onChange, label }: CurrencySelec
               <option
                 key={`fav-${currency.code}`}
                 value={currency.code}
-                style={{ backgroundColor: '#fff7cc' }}
+                style={{ backgroundColor: '#fef3c7', fontWeight: '600' }}
               >
-                {currency.code} - {currency.name}
+                ⭐ {currency.code} - {currency.name}
               </option>
             );
           })}
