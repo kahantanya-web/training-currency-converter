@@ -13,18 +13,6 @@
 - Assertion: @testing-library/jest-dom
 - Runner: Jest (already configured)
 
-## Testing Rules
-
-**Follow existing patterns** from `AmountInput.test.tsx` or `ConverterForm.test.tsx`:
-
-- Use `describe` blocks to group related tests
-- Create `jest.fn()` mocks and clear them in `beforeEach`
-- Use `screen.getByText()` for elements that must exist
-- Use `screen.queryByText()` for conditional elements
-- Use `fireEvent.click()` for user interactions
-
-**Coverage Target**: 100% statements, branches, functions, and lines
-
 ## What to Test
 
 ### 1. Conditional Rendering

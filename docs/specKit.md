@@ -85,11 +85,18 @@ cd /path/to/your/project
 uvx --from git+https://github.com/github/spec-kit.git specify init PROJECT_NAME
 ```
 
+or, to initialize Spec-Kit directly in your project's root directory:
+
+```bash
+cd /path/to/your/project
+uvx --from git+https://github.com/github/spec-kit.git specify init .
+```
+
 **For this project:**
 
 ```bash
 cd C:\projects\Training\training-currency-converter
-uvx --from git+https://github.com/github/spec-kit.git specify init training-currency-converter
+uvx --from git+https://github.com/github/spec-kit.git specify init .
 ```
 
 During initialization, you'll be prompted to:
@@ -197,7 +204,21 @@ Once installed, use these slash commands in GitHub Copilot (VS Code):
    Example:
 
    ```
-   /speckit.specify Add a "Favorite Currencies" feature with localStorage persistence
+   /speckit.specify Add a "Favorite Currencies" feature:
+   - Users can mark currencies as favorites with a star icon
+   - Favorite icon (star) should appear as prefix on the left side of the currency selector input
+   - When currency is favorite: star is filled (solid), background is highlighted
+   - All UI elements must be properly aligned without overlapping or obscuring content
+   - Ensure responsive layout on mobile and desktop
+   - Favorites persist in localStorage (key: tcc.favorites)
+   - Favorites must use client-side hydration (load localStorage in useEffect) to prevent React hydration errors
+   - Favorites appear at the top of currency selectors
+   - Maximum 5 favorites allowed
+   - UI shows add/remove favorite controls
+   - Include unit tests for favorites logic
+   - Follow constitution: 80% coverage, WCAG 2.1 AA, performance targets
+   - Use appearance-none CSS for custom dropdown arrows to prevent double arrows
+   - Always display both currency code AND name in dropdowns (e.g., "USD - US Dollar")
    ```
 
 3. **`/speckit.plan`** - Create implementation plan
@@ -254,75 +275,9 @@ Once installed, use these slash commands in GitHub Copilot (VS Code):
    - Check clarity and consistency
    - Run after `/speckit.plan`
 
-### Recommended Workflow
-
-#### 1. Define Project Constitution (One-time)
-
-```
-/speckit.constitution Create principles for code quality, testing, UX, and performance
-```
-
-Output: `.speckit.constitution` file at project root
-
-#### 2. For Each New Feature
-
-**Step A: Create Specification**
-
-```
-/speckit.specify Add [feature description]
-```
-
-Output: `specs/feature-name.spec.md`
-
-**Step B: (Optional) Clarify Ambiguities**
-
-```
-/speckit.clarify specs/feature-name.spec.md
-```
-
-**Step C: Create Implementation Plan**
-
-```
-/speckit.plan specs/feature-name.spec.md
-```
-
-Output: `specs/feature-name.plan.md`
-
-**Step D: (Optional) Validate with Checklist**
-
-```
-/speckit.checklist specs/feature-name.plan.md
-```
-
-**Step E: Generate Tasks**
-
-```
-/speckit.tasks specs/feature-name.spec.md
-```
-
-Output: `specs/feature-name.tasks.md`
-
-**Step F: (Optional) Analyze Consistency**
-
-```
-/speckit.analyze specs/feature-name.spec.md
-```
-
-**Step G: Implement**
-
-```
-/speckit.implement specs/feature-name.tasks.md
-```
-
-**Step H: Test & Document**
-
-- Run tests: `npm test`
-- Update documentation
-- Update CHANGELOG.md
-
 ## Example: Favorite Currencies Feature
 
-This project already has an example feature specification:
+> **Note:** The implementation for the Favorite Currencies feature is available only in the `spec-kit` branch of this repository.
 
 1. **Constitution**: `.speckit.constitution`
 
@@ -442,65 +397,4 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-## Resources
-
-- **Spec-Kit Repository**: https://github.com/github/spec-kit
-- **UV Documentation**: https://docs.astral.sh/uv/
-- **GitHub Copilot**: https://github.com/features/copilot
-- **Project Constitution**: `.speckit.constitution`
-- **Example Specification**: `specs/favorite-currencies.spec.md`
-- **Example Tasks**: `specs/favorite-currencies.tasks.md`
-
-## Project-Specific Notes
-
-### This Currency Converter Project
-
-**Tech Stack:**
-
-- Next.js 14 (App Router)
-- TypeScript
-- Tailwind CSS
-- Jest + Testing Library
-
-**Constitution Highlights:**
-
-- 80% minimum code coverage
-- WCAG 2.1 AA accessibility
-- Core Web Vitals: LCP <2.5s, FID <100ms, CLS <0.1
-- Bundle size: <200KB gzipped
-
-**Existing Features:**
-
-- Real-time currency conversion (10 currencies)
-- Conversion history
-- URL persistence
-- Responsive design
-
-**Next Feature to Implement:**
-
-- Favorite Currencies (spec and tasks already created)
-
-## Getting Help
-
-1. Check the official spec-kit repository issues
-2. Review the example specs in this project
-3. Consult the constitution for standards
-4. Review the VISUAL_GUIDE.md for UI components
-5. Check README.md for project setup
-
-## Version Information
-
-- **Spec-Kit Version**: Latest from main branch
-- **UV Version**: 0.9.3+
-- **Specify CLI Version**: 0.0.20+
-- **Last Updated**: October 2025
-
----
-
-**Ready to get started?** Open VS Code, enable GitHub Copilot, and try:
-
-```
-/speckit.constitution
 ```
