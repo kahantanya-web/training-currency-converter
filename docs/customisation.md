@@ -8,7 +8,7 @@
 
 - Add context through:
   - Files, folders, code lines, images, and links.
-  - Special commands: `@workspace`, `@file`.
+  - Special commands: `@workspace`, `#fileName`.
   - Use `#selection` for focused work on highlighted text.
 - Pull elements without screenshots using **Simple Browser** (HTML, CSS, JS).
 - Start a new chat session periodically to clear old context.
@@ -153,35 +153,70 @@ Explain the logic of this function and suggest optimization.
 
 ### What to do:
 
-- Set **custom instructions** (e.g., “Always use TypeScript”).
-- Create a `/prompts` folder for reusable templates.
-- Configure ToolSet (up to 128 tools per request).
-- Automate GitHub tasks (issues, PRs, workflows).
-- **Choose built-in Copilot Chat Modes** (Explain, Fix, Test) or create custom ones.
+- Set **custom instructions** in `.github/copilot-instructions.md` to enforce project standards
+- Create reusable **prompt templates** in `.github/prompts/` folder
+- Design **custom chat modes** in `.github/chatmodes/` for specialized workflows
+- Add **file-specific instructions** in `.github/instructions/` (e.g., `nextjs.instructions.md`)
+- Configure ToolSet (up to 128 tools per request) for agent-driven tasks
+- Automate GitHub tasks (issues, PRs, workflows)
 
 ### Why it matters:
 
-- Instructions enforce coding standards.
-- Chat Modes accelerate repetitive tasks.
+- Instructions enforce coding standards and architectural patterns
+- Chat Modes accelerate repetitive tasks (bug fixing, feature implementation)
+- Prompt templates ensure consistency across team
+- File-specific instructions apply framework best practices automatically
 
 ### Best practices:
 
-- Store prompt templates in your repo.
-- Create custom modes for recurring workflows.
+- **Central instructions file**: `.github/copilot-instructions.md` for project-wide rules
+- **Prompt templates**: Create `.prompt.md` files for common workflows (see our `bug-fixing.prompt.md`, `introduction.prompt.md`)
+- **Custom chat modes**: Define `.chatmode.md` files with specific tool configurations (see our `beast.chatmode.md` with 20+ tools)
+- **Pattern documentation**: Include architecture patterns, testing conventions, and critical gotchas
+- **Session management rules**: Always create todo lists, maintain context logs
 
-**Example custom instruction:**
+### This Project's Implementation
 
+**1. Custom Instructions** (`.github/copilot-instructions.md`):
+
+```markdown
+## Session Management
+
+- Always create a to-do list at the start of each multi-step task
+- Maintain a temporary log file (copilot_session.log)
+
+## Core Architecture
+
+- Custom Hooks: useExchangeRates + useConverter
+- Component Composition: Small, focused components
+- State Management: URL-first with useSearchParams
+- API Layer: Multiple fallback sources with 1-hour caching
+
+## Critical Patterns
+
+- Co-located tests (.tsx + .test.tsx)
+- URL state management pattern
+- API error handling with fallbacks
 ```
-Always use TypeScript, avoid 'any', and add JSDoc comments.
-```
+
+**2. Prompt Templates** (`.github/prompts/`):
+
+- `bug-fixing.prompt.md` - Systematic bug diagnosis and fix workflow
+- `introduction.prompt.md` - Project onboarding for new contributors
+- **Source**: Custom-created with GitHub Copilot by analyzing this project's requirements, architecture and patterns
+
+**3. Custom Chat Modes** (`.github/chatmodes/`):
+
+- `beast.chatmode.md` - Agent mode with 20+ tools for autonomous problem-solving
+  - Includes: codebase search, test execution, terminal commands, web fetch
+  - Configured with `mode: agent` for multi-step autonomous work
+  - **Source**: [Burke Holland's Beast Mode 3.1](https://gist.github.com/burkeholland/88af0249c4b6aff3820bf37898c8bacf)
+
+**4. File-Specific Instructions** (`.github/instructions/`):
+
+- `nextjs.instructions.md` - Next.js 14 App Router best practices
+  - Applied to all files via glob pattern `**`
+  - Enforces Server/Client Component patterns
+  - **Source**: [GitHub Awesome Copilot](https://github.com/github/awesome-copilot/blob/main/instructions/nextjs.instructions.md)
 
 ---
-
-## Additional Tips
-
-- **Common mistakes:**
-  - Overly generic prompts → poor results.
-  - Mixing languages → inaccurate generation.
-- **Quick links:**
-  - [GitHub Copilot Docs](https://docs.github.com/en/copilot)
-  - [VS Code Copilot Extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
