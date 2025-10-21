@@ -89,6 +89,13 @@ Central type definitions in `/types/index.ts`. Key interfaces:
 - Test environment specified: `@jest-environment node` for API routes
 - Mock setup in `jest.setup.ts` for Next.js router and window APIs
 
+### Testing Philosophy
+
+- **Test behavior, not implementation**: Focus on what the component does, not how it does it
+- **Test user interactions**: Simulate real user behavior (clicks, typing, form submissions)
+- **Test edge cases**: Empty states, error states, loading states, boundary conditions
+- **Use descriptive test names**: Tests should read like specifications
+
 ### Testing Patterns
 
 ```typescript
@@ -108,6 +115,13 @@ global.fetch = jest.fn();
 // Hook testing with custom wrapper for providers
 const wrapper = ({ children }) => <TestWrapper>{children}</TestWrapper>;
 renderHook(() => useConverter(mockRates), { wrapper });
+
+// User interaction testing
+await userEvent.type(input, "test value");
+await userEvent.click(button);
+await waitFor(() => {
+  expect(result.current.data).toEqual(expectedData);
+});
 ```
 
 ### Mock Strategy
@@ -120,6 +134,9 @@ renderHook(() => useConverter(mockRates), { wrapper });
 
 - **Don't test styles**: Avoid asserting specific CSS classes or inline styles. Styles change frequently and are better validated through visual/snapshot testing or manual review.
 - **Test behavior, not implementation**: Focus on user interactions, state changes, and outputs rather than component internals.
+- **Don't test implementation details**: Avoid testing internal state variable names or private functions
+- **Don't use container.querySelector**: Use Testing Library queries instead (`getByRole`, `getByLabelText`, etc.)
+- **Do test error boundaries**: Ensure error states render correctly
 - **Exception**: Only test classes when they affect functionality (e.g., `disabled` state, visibility toggles, or accessibility attributes like `aria-*`).
 
 ## Development Workflows
